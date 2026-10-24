@@ -1,7 +1,8 @@
-# Adminer Server Aliases
+# Adminer Saved Connections
 
-Custom connection names in Adminer’s sidebar and breadcrumb, stored in your
-browser’s localStorage. Hover over a name to see the original server address.
+Browser-local favorite connections for Adminer, with custom names and removal
+controls. The plugin replaces the visible built-in connection list. Favorites
+remain saved after a failed login.
 
 ## Requirements
 
@@ -15,26 +16,37 @@ Copy the files alongside Adminer:
 ```text
 adminer.php
 adminer-plugins/
-  server-aliases.php
+  saved-connections.php
   assets/
-    server-aliases.css
-    server-aliases.js
+    saved-connections.css
+    saved-connections.js
 ```
 
 Standalone Adminer discovers the plugin automatically. Other distributions may
-require their own loader. See [Adminer’s plugin documentation](https://www.adminer.org/en/plugins/).
+require their own loader. Remove `server-aliases.php` if previously installed.
+For explicit configuration, use `Adminer\AdminerSavedConnections`.
 
 ## Usage
 
-Click the pencil beside a saved or active connection to rename it. Leave the name
-empty to restore the server address. Duplicate names are allowed.
+- Click **Save connection** in the login form or sidebar to save its parameters
+  and choose a name. Saving from the sidebar uses the current database.
+- Use the pencil to rename a favorite or the cross to remove it after confirmation.
+- Leave the name empty to show connection details. Duplicate names are allowed.
+- Hover over a favorite to see its database type, username, host and database.
 
-Saved connection links show only the alias when one is set. The original database
-type, username, server address and database name remain available on hover.
+Favorites are identified by driver, host and username. Each stores one database
+as its destination. Saving the same connection updates that destination. Aliases
+also appear in breadcrumbs.
 
-Aliases are assigned by database driver, host and username, and shared across
-that connection’s databases. Storage is separate for each browser origin and
-Adminer URL path. Names do not sync between devices and are removed when site
-storage is cleared. No passwords are stored.
+Existing Adminer entries and previous server aliases are imported once, on first
+use. Deleted favorites are not automatically imported again. Removing a favorite
+does not log out or clear credentials remembered by Adminer.
+
+Only connection parameters and names are stored, never passwords. Adminer handles
+authentication and remembered logins. Favorites are isolated by browser origin
+and Adminer URL path. They do not sync between devices. Clearing site storage
+removes them and allows the initial import again.
 
 Interface languages: English, Polish and Ukrainian, with English fallback.
+If storage cannot be read, the plugin shows a warning and leaves Adminer's list
+available.

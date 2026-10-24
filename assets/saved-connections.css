@@ -1,0 +1,31 @@
+#logins[hidden] {
+    display: none !important;
+}
+
+#saved-connections {
+    margin: 1em 0;
+}
+
+#saved-connections ul {
+    list-style: none;
+    padding: 0;
+}
+
+#saved-connections li {
+    margin: .4em 0;
+    overflow-wrap: anywhere;
+}
+
+#saved-connections li button {
+    background: none;
+    border: 0;
+    color: inherit;
+    cursor: pointer;
+    font: inherit;
+    padding: 0 .25em;
+}
+
+#saved-connections li button:hover,
+#saved-connections li button:focus-visible {
+    text-decoration: underline;
+}

@@ -29,6 +29,9 @@ require their own loader. See [Adminer’s plugin documentation](https://www.adm
 Click the pencil beside a saved or active connection to rename it. Leave the name
 empty to restore the server address. Duplicate names are allowed.
 
+Saved connection links show only the alias when one is set. The original database
+type, username, server address and database name remain available on hover.
+
 Aliases are assigned by database driver, host and username, and shared across
 that connection’s databases. Storage is separate for each browser origin and
 Adminer URL path. Names do not sync between devices and are removed when site

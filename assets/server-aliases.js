@@ -7,9 +7,8 @@
     const config = JSON.parse(meta.content);
     const entries = [];
 
-    function register(name, context) {
+    function register(name, context, original = context[1] || 'localhost') {
         const key = 'adminer-server-aliases:v1:' + JSON.stringify([location.pathname, ...context]);
-        const original = context[1] || 'localhost';
         let alias = '';
 
         try {
@@ -65,27 +64,8 @@
         if (!driver) continue;
 
         const context = [driver, url.searchParams.get(driver), url.searchParams.get('username') || ''];
-        let name = link.querySelector('.server-aliases-name');
-
-        // Adminer omits serverName() for an empty host in saved logins.
-        if (!name) {
-            if (context[1] !== '') continue;
-
-            name = document.createElement('span');
-            name.className = 'server-aliases-name';
-            const text = link.firstChild;
-            const marker = ') ' + context[2] + '@';
-            const index = text && text.nodeType === Node.TEXT_NODE
-                ? text.textContent.indexOf(marker)
-                : -1;
-            if (index < 0) continue;
-
-            const suffix = text.splitText(index + marker.length);
-            link.insertBefore(name, suffix);
-        }
-
-        const entry = register(name, context);
-        link.title = '(' + driver + ') ' + context[2] + '@' + entry.original;
+        const entry = register(link, context, link.textContent.trim());
+        link.classList.add('server-aliases-name');
         addRenameButton(link.parentElement, entry);
     }
 
